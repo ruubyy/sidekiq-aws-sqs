@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.description = spec.summary
   spec.homepage = "https://github.com/nejdetkadir/#{spec.name}"
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 2.7.0'
+  spec.required_ruby_version = '>= 2.3.7'
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = spec.homepage
@@ -37,10 +37,9 @@ Gem::Specification.new do |spec|
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
 
-  spec.add_dependency 'aws-sdk-sqs', '~> 1.53'
-  spec.add_dependency 'dry-configurable', '~> 1.0', '>= 1.0.1'
-  spec.add_dependency 'rails', '>= 6.0.0'
-  spec.add_dependency 'safe_poller', '~> 0.0.1'
-  spec.add_dependency 'sidekiq', '>= 7.0.0'
+  spec.add_dependency 'aws-sdk', '~> 2'
+  spec.add_dependency 'dry-configurable', '>= 0.8.3'
+  spec.add_dependency 'rails', '>= 4.1.16'
+  spec.add_dependency 'sidekiq', '>= 5.2.7'
 end
 # rubocop:enable Layout/LineLength, Metrics/BlockLength

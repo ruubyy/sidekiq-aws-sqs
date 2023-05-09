@@ -12,7 +12,7 @@ module Sidekiq
         def poller
           validate_sqs_options!
 
-          @poller ||= SafePoller.poll do
+          @poller ||= ::SafePoller.poll do
             sqs_options_struct
               .client
               .receive_message(queue_url: sqs_options_struct.queue_url,
@@ -21,7 +21,7 @@ module Sidekiq
               .each do |message|
               Sidekiq::AWS::SQS.logger.debug("Received message #{message.message_id} from #{sqs_options_struct.queue_url} for #{self}")
 
-              perform_async(message.to_json)
+              perform_in(5.seconds, message.to_json)
 
               Sidekiq::AWS::SQS.logger.debug("Enqueued message #{message.message_id} from #{sqs_options_struct.queue_url} for #{self}")
 
