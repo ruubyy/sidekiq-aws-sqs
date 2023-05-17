@@ -16,6 +16,7 @@ module Sidekiq
       setting :wait_time_seconds, 20, reader: true
       setting :max_number_of_messages, 10, reader: true
       setting :destroy_on_received, false, reader: true
+      setting :message_attribute_names, [], reader: true
       setting :logger, ::Sidekiq.logger, reader: true
     end
   end

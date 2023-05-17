@@ -45,6 +45,11 @@ module Sidekiq
               Sidekiq::AWS::SQS.config.destroy_on_received
           end
 
+          if @sqs_options[:message_attribute_names].blank?
+            @sqs_options[:message_attribute_names] =
+              Sidekiq::AWS::SQS.config.message_attribute_names
+          end
+
           @sqs_options[:client] = Sidekiq::AWS::SQS.config.sqs_client if @sqs_options[:client].blank?
 
           OpenStruct.new(@sqs_options)

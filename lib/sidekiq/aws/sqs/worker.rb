@@ -16,7 +16,8 @@ module Sidekiq
             sqs_options_struct
               .client
               .receive_message(queue_url: sqs_options_struct.queue_url,
-                               wait_time_seconds: sqs_options_struct.wait_time_seconds)
+                               wait_time_seconds: sqs_options_struct.wait_time_seconds,
+                               message_attribute_names: sqs_options_struct.message_attribute_names)
               .messages
               .each do |message|
               Sidekiq::AWS::SQS.logger.debug("Received message #{message.message_id} from #{sqs_options_struct.queue_url} for #{self}")
