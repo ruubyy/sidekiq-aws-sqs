@@ -17,7 +17,9 @@ module Sidekiq
       setting :max_number_of_messages, 10, reader: true
       setting :destroy_on_received, false, reader: true
       setting :message_attribute_names, [], reader: true
+      setting :sqs_dt_available_event_types, [], reader: true
       setting :event_types, [], reader: true
+      setting :dt_event_types, [], reader: true
       setting :logger, ::Sidekiq.logger, reader: true
     end
   end

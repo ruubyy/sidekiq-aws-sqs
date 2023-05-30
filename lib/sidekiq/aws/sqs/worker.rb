@@ -20,13 +20,15 @@ module Sidekiq
                                message_attribute_names: sqs_options_struct.message_attribute_names)
               .messages
               .each do |message|
-              next if sqs_options_struct.event_types.exclude? JSON.parse(message.body)['eventType']
 
-              Sidekiq::AWS::SQS.logger.debug("Received message #{message.message_id} from #{sqs_options_struct.queue_url} for #{self}")
+              if sqs_options_struct.sqs_dt_available_event_types.include?(event_type)
+                next if sqs_options_struct.event_types.exclude? event_type
 
-              perform_in(5.seconds, message.to_json)
+                Sidekiq::AWS::SQS.logger.debug("Received message #{message.message_id} from #{sqs_options_struct.queue_url} for #{self}")
+                perform_in(5.seconds, message.to_json)
 
-              Sidekiq::AWS::SQS.logger.debug("Enqueued message #{message.message_id} from #{sqs_options_struct.queue_url} for #{self}")
+                Sidekiq::AWS::SQS.logger.debug("Enqueued message #{message.message_id} from #{sqs_options_struct.queue_url} for #{self}")
+              end
 
               next unless need_to_destroy_on_received?
 

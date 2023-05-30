@@ -55,6 +55,7 @@ module Sidekiq
               Sidekiq::AWS::SQS.config.event_types
           end
 
+          @sqs_options[:sqs_dt_available_event_types] = Sidekiq::AWS::SQS.config.sqs_dt_available_event_types
           @sqs_options[:client] = Sidekiq::AWS::SQS.config.sqs_client if @sqs_options[:client].blank?
 
           OpenStruct.new(@sqs_options)
