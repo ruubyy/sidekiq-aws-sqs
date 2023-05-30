@@ -21,6 +21,7 @@ module Sidekiq
               .messages
               .each do |message|
 
+              event_type = JSON.parse(message.body)['eventType']
               if sqs_options_struct.sqs_dt_available_event_types.include?(event_type)
                 next if sqs_options_struct.event_types.exclude? event_type
 
