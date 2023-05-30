@@ -20,6 +20,8 @@ module Sidekiq
                                message_attribute_names: sqs_options_struct.message_attribute_names)
               .messages
               .each do |message|
+              next if sqs_options_struct.event_types.exclude? JSON.parse(message.body)['eventType']
+
               Sidekiq::AWS::SQS.logger.debug("Received message #{message.message_id} from #{sqs_options_struct.queue_url} for #{self}")
 
               perform_in(5.seconds, message.to_json)

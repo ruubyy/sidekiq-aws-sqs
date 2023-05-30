@@ -50,6 +50,11 @@ module Sidekiq
               Sidekiq::AWS::SQS.config.message_attribute_names
           end
 
+          if @sqs_options[:event_types].blank?
+            @sqs_options[:event_types] =
+              Sidekiq::AWS::SQS.config.event_types
+          end
+
           @sqs_options[:client] = Sidekiq::AWS::SQS.config.sqs_client if @sqs_options[:client].blank?
 
           OpenStruct.new(@sqs_options)
